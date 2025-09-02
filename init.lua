@@ -8,7 +8,6 @@ vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.number = true
-vim.opt.relativenumber = true
 vim.opt.mouse = "a"
 vim.opt.clipboard = "unnamedplus"
 vim.opt.splitbelow = true
@@ -114,6 +113,22 @@ require("lazy").setup({
         vim.keymap.set("n", "<C-n>", ":Neotree toggle left reveal_force_cwd<CR>", { desc = "Toggle Neo-tree (Ctrl+n)" })
       end,
     },
+    {
+      "akinsho/toggleterm.nvim",
+      version = "*",
+      config = function()
+        require("toggleterm").setup({
+          size = 12,                -- height of the terminal window
+          open_mapping = [[<C-\>]], -- optional, toggle with Ctrl+\
+          shade_terminals = true,   -- slight dimming of background
+          direction = "horizontal", -- bottom split
+        })
+
+        -- map <leader>t to toggle horizontal terminal at bottom
+        vim.keymap.set("n", "<leader>t", "<cmd>ToggleTerm direction=horizontal<CR>", { desc = "Toggle bottom terminal" })
+      end,
+    },
+
   },
 
   install = { colorscheme = { "habamax" } },
@@ -126,7 +141,7 @@ vim.keymap.set("n", "<C-p>", builtin.find_files, { desc = "Telescope find files"
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Live grep (search text)" })
 
 -- Terminal keymaps
-vim.keymap.set("n", "<leader>t", ":split | terminal<CR>", { desc = "Open terminal below" })
+-- vim.keymap.set("n", "<leader>t", ":split | terminal<CR>", { desc = "Open terminal below" })
 vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode with Esc" })
 vim.keymap.set("t", "<C-q>", [[<C-\><C-n>:q<CR>]], { desc = "Close terminal with Ctrl+q" })
 
